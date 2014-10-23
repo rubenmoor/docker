@@ -4,21 +4,31 @@ FROM rubenmoor/ghc
 
 MAINTAINER Ruben Moor <ruben.moor@gmail.com>
 
-ENV ANTON_TAG v1.0
-ENV ANTON_BINARY anton
-ENV GITREPO_PATH rmoor@mdrexl.webfactional.com:/home/rmoor/git_repos/anton
+ENV GITREPO_TAG v1.1
+ENV WEBSERVER_BINARY warp-rest
+ENV GITREPO_PATH https://github.com/rubenmoor/warp-rest.git
 
 RUN apt-get update && apt-get install -qy \
     git
 
 ENV WEBDIR /root/web
 
-RUN mkdir -p WEBDIR
-RUN git archive --format=tar --remote=$GITREPO_PATH $ANTON_TAG |
-    (cd $WEBDIR && tar -xf -)
+RUN mkdir -p $WEBDIR
+
+# workaround for "git archive": github does not support
+ENV TMPDIR /root/tmp
+RUN git clone --depth 1 $GITREPO_PATH $TMPDIR
+RUN cd $TMPDIR && \
+    git archive $GITREPO_TAG --format=tar \
+    | (cd $WEBDIR && tar -xf -)
+RUN rm -rf $TMPDIR
+
+# this is the actual command "git archive"
+# RUN git archive --format=tar --remote=$GITREPO_PATH $GITREPO_TAG \
+#     | (cd $WEBDIR && tar -xf -)
+
+RUN cabal update
 RUN cd $WEBDIR && \
     cabal install
 
-EXPOSE 3000
-
-CMD anton
+CMD $WEBSERVER_BINARY
