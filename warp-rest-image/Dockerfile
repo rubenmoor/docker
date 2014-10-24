@@ -33,8 +33,10 @@ RUN cd $TMPDIR && \
 
 RUN rm -rf $TMPDIR
 
-RUN cabal update
 RUN cd $WEBDIR && \
+    cabal update && \
+    # explicit install of happy necessary, due to bug in haskell-src-exts 1.16
+    cabal install happy && \
     cabal install
 
 CMD $WEBSERVER_BINARY
