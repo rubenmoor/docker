@@ -4,9 +4,9 @@ FROM rubenmoor/ghc
 
 MAINTAINER Ruben Moor <ruben.moor@gmail.com>
 
-ENV GITREPO_TAG v1.1
-ENV WEBSERVER_BINARY warp-rest
-ENV GITREPO_PATH https://github.com/rubenmoor/warp-rest.git
+ENV GITREPO_TAG master
+ENV WEBSERVER_BINARY warp-example
+ENV GITREPO_PATH https://github.com/rubenmoor/warp-example.git
 
 RUN apt-get update && apt-get install -qy \
     git
