@@ -1,4 +1,4 @@
-# rubenmoor/warp
+# rubenmoor/warp-example
 
 FROM rubenmoor/ghc
 

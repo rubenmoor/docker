@@ -1,14 +1,14 @@
-# rubenmoor/warp-rest
+# rubenmoor/warp-rest-client
 
 FROM rubenmoor/ghc
 
 MAINTAINER Ruben Moor <ruben.moor@gmail.com>
 
 ENV GITREPO_TAG master
-ENV WEBSERVER_BINARY rest-example-wai
+ENV CLIENTSCRIPT_EXEC script.sh
 ENV GITREPO_PATH https://github.com/silkapp/rest.git
 
-ENV WEBDIR /root/web
+ENV CLIENT_DIR /root/client
 
 ENV TMPDIR /root/tmp
 
@@ -26,14 +26,8 @@ RUN cd $GITREPO_DIR && \
     git archive $GITREPO_TAG --format=tar \
     | (cd $TMPDIR && tar -xf -)
 RUN cd $TMPDIR && \
-    mv $RESTEXAMPLE_DIR $WEBDIR
+    mv $RESTEXAMPLE_DIR $CLIENT_DIR
 
 RUN rm -rf $TMPDIR
 
-RUN cabal update && \
-    # explicit install of happy necessary, due to bug in haskell-src-exts 1.16
-    cabal install happy
-RUN cd $WEBDIR && \
-    cabal install --flags="wai"
-
-CMD $WEBSERVER_BINARY
+CMD $CLIENT_DIR/$CLIENTSCRIPT_EXEC

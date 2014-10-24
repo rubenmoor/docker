@@ -1,27 +1,18 @@
 # rubenmoor/ghc
 
-FROM debian:jessie
+FROM rubenmoor/ghc-base
 
 MAINTAINER Ruben Moor <ruben.moor@gmail.com>
+
+ENV TMPINSTALLDIR /root/tmp
+RUN mkdir -p $TMPINSTALLDIR
 
 # edit versions here
 #
 # see http://www.haskell.org/cabal/download.html for matching versions of
 # ghc and cabal-install
 #
-ENV GHC_VERSION 7.8.1
-ENV CABINST_VERSION 1.18.0.3
-
-RUN apt-get update && apt-get install -q -y \
-    bzip2 \
-    curl \
-    gcc \
-    libgmp-dev \
-    make \
-    zlib1g-dev
-
-ENV TMPINSTALLDIR /root/tmp
-RUN mkdir -p $TMPINSTALLDIR
+ENV GHC_VERSION 7.8.3
 
 # ghc
 
@@ -34,7 +25,14 @@ RUN cd $GHC_DOWNLOADDIR && \
     ./configure && \
     make install
 
+# edit versions here
+#
+# see http://www.haskell.org/cabal/download.html for matching versions of
+# ghc and cabal-install
+#
 # cabal install (including cabal lib)
+#
+ENV CABINST_VERSION 1.18.0.3
 
 ENV CABINST_TARFILENAME cabal-install-${CABINST_VERSION}.tar.gz
 ENV CABINST_DOWNLOADDIR $TMPINSTALLDIR/cabal-install-$CABINST_VERSION
