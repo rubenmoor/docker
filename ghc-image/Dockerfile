@@ -19,7 +19,7 @@ ENV GHC_VERSION 7.8.3
 ENV GHC_TARFILENAME ghc-${GHC_VERSION}-x86_64-unknown-linux-deb7.tar.bz2
 ENV GHC_DOWNLOADDIR $TMPINSTALLDIR/ghc-$GHC_VERSION
 
-RUN curl http://www.haskell.org/ghc/dist/$GHC_VERSION/$GHC_TARFILENAME \
+RUN curl https://downloads.haskell.org/~ghc/$GHC_VERSION/$GHC_TARFILENAME \
     | tar xjC $TMPINSTALLDIR
 RUN cd $GHC_DOWNLOADDIR && \
     ./configure && \

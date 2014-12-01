@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# exit on failur
+# exit on failure
 set -e
 
 # build images
