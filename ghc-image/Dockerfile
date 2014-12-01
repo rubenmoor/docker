@@ -37,7 +37,7 @@ ENV CABINST_VERSION 1.18.0.3
 ENV CABINST_TARFILENAME cabal-install-${CABINST_VERSION}.tar.gz
 ENV CABINST_DOWNLOADDIR $TMPINSTALLDIR/cabal-install-$CABINST_VERSION
 
-RUN curl http://www.haskell.org/cabal/release/cabal-install-${CABINST_VERSION}/cabal-install-${CABINST_VERSION}.tar.gz \
+RUN curl https://www.haskell.org/cabal/release/cabal-install-${CABINST_VERSION}/cabal-install-${CABINST_VERSION}.tar.gz \
     | tar xzC $TMPINSTALLDIR
 RUN cd $CABINST_DOWNLOADDIR && \
     ./bootstrap.sh
