@@ -9,11 +9,18 @@ ENV GITREPO_PATH https://github.com/rubenmoor/${PROJECT_NAME}.git
 
 ENV WEBDIR /root/web
 
+RUN mkdir -p $WEBDIR
+
 ENV SRCDIR /root/src
 
-ENV GITREPO_DIR $SRCDIR/repo
+RUN mkdir -p $SRCDIR
 
-RUN cd $GITREPO_DIR && \
-    git clone $GITREPO_PATH $PROJECT_NAME
+RUN cd $SRCDIR && \
+    git clone $GITREPO_PATH .
 
-RUN cp -r $GITREPO_DIR/$PROJECT_NAME/_site/* $WEBDIR
+ENV LANG C.UTF-8
+
+RUN cd $SRCDIR && \
+    cabal run build
+
+RUN cp -r $SRCDIR/_site/* $WEBDIR
