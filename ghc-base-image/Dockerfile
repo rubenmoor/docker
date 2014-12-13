@@ -11,4 +11,5 @@ RUN apt-get update && apt-get install -q -y \
     git \
     libgmp-dev \
     make \
-    zlib1g-dev
+    zlib1g-dev \
+    dh-autoreconf

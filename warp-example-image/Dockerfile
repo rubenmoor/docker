@@ -8,9 +8,6 @@ ENV GITREPO_TAG master
 ENV WEBSERVER_BINARY warp-example
 ENV GITREPO_PATH https://github.com/rubenmoor/warp-example.git
 
-RUN apt-get update && apt-get install -qy \
-    git
-
 ENV WEBDIR /root/web
 
 RUN mkdir -p $WEBDIR
