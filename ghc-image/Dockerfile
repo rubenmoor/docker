@@ -57,6 +57,8 @@ ENV PATH /root/.cabal/bin:$PATH
 # install basic packages
 
 RUN cabal update && \
-    cabal install happy
+    cabal install \
+        happy \
+        alex
 
 WORKDIR /root
