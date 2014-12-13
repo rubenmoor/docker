@@ -1,8 +1,11 @@
-# rubenmoor/ghcjs
+# rubenmoor/ghcjs-base
 
 FROM rubenmoor/ghc
 
 MAINTAINER Ruben Moor <ruben.moor@gmail.com>
+
+RUN apt-get update && apt-get install -qy \
+        nodejs
 
 ENV TMPINSTALLDIR /root/tmp
 RUN mkdir -p $TMPINSTALLDIR
@@ -36,5 +39,7 @@ RUN cabal update && \
     cabal install $GHCJS_DIR $GHCJSPRIM_DIR
 
 RUN rm -rf $TMPINSTALLDIR
+
+RUN ghcjs-boot --dev --with-node nodejs
 
 WORKDIR /root

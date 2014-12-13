@@ -34,22 +34,18 @@ RUN cd $GHC_DOWNLOADDIR && \
 #
 ENV CABINST_VERSION 1.20.0.3
 
-# by default cabal-install installs vanilla, profile and shared libraries
-# this is prevented by the next line
-ENV EXTRA_CONFIGURE_OPTS ""
-
 ENV CABINST_TARFILENAME cabal-install-${CABINST_VERSION}.tar.gz
 ENV CABINST_DOWNLOADDIR $TMPINSTALLDIR/cabal-install-$CABINST_VERSION
 
 RUN curl https://www.haskell.org/cabal/release/cabal-install-${CABINST_VERSION}/cabal-install-${CABINST_VERSION}.tar.gz \
     | tar xzC $TMPINSTALLDIR
+
+# by default cabal-install installs vanilla, profile and shared libraries
+# this is prevented by the next line
+#ENV EXTRA_CONFIGURE_OPTS ""
+
 RUN cd $CABINST_DOWNLOADDIR && \
     ./bootstrap.sh
-
-# install basic packages
-
-RUN cabal update && \
-    cabal install happy
 
 # delete tmp files
 
@@ -57,5 +53,10 @@ RUN rm -rf $TMPINSTALLDIR
 
 # set path
 ENV PATH /root/.cabal/bin:$PATH
+
+# install basic packages
+
+RUN cabal update && \
+    cabal install happy
 
 WORKDIR /root
