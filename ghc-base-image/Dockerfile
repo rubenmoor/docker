@@ -12,4 +12,5 @@ RUN apt-get update && apt-get install -q -y \
     libgmp-dev \
     make \
     zlib1g-dev \
-    dh-autoreconf
+    dh-autoreconf \
+    libtinfo-dev

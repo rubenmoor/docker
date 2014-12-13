@@ -23,23 +23,17 @@ RUN cd $CABAL_DIR && \
     cabal install ./Cabal ./cabal-install
 
 # install cabal packages
-#   ghcjs
 ENV GHCJS_GIT https://github.com/ghcjs/ghcjs.git
 ENV GHCJS_DIR $TMPINSTALLDIR/ghcjs
-
 RUN git clone $GHCJS_GIT $GHCJS_DIR
-RUN cd $GHCJS_DIR && \
-    cabal update && \
-    cabal install $GHCJS_DIR
 
 #   ghcjs-prim
 ENV GHCJSPRIM_GIT https://github.com/ghcjs/ghcjs-prim.git
 ENV GHCJSPRIM_DIR $TMPINSTALLDIR/ghcjsprim
-
 RUN git clone $GHCJSPRIM_GIT $GHCJSPRIM_DIR
-RUN cd $GHCJSPRIM_DIR && \
-    cabal update && \
-    cabal install $GHCJSPRIM_DIR
+
+RUN cabal update && \
+    cabal install $GHCJS_DIR $GHCJSPRIM_DIR
 
 RUN rm -rf $TMPINSTALLDIR
 

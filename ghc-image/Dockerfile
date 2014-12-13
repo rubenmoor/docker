@@ -46,6 +46,11 @@ RUN curl https://www.haskell.org/cabal/release/cabal-install-${CABINST_VERSION}/
 RUN cd $CABINST_DOWNLOADDIR && \
     ./bootstrap.sh
 
+# install basic packages
+
+RUN cabal update && \
+    cabal install happy
+
 # delete tmp files
 
 RUN rm -rf $TMPINSTALLDIR
