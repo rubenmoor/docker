@@ -32,7 +32,11 @@ RUN cd $GHC_DOWNLOADDIR && \
 #
 # cabal install (including cabal lib)
 #
-ENV CABINST_VERSION 1.18.0.3
+ENV CABINST_VERSION 1.20.0.3
+
+# by default cabal-install installs vanilla, profile and shared libraries
+# this is prevented by the next line
+ENV EXTRA_CONFIGURE_OPTS ""
 
 ENV CABINST_TARFILENAME cabal-install-${CABINST_VERSION}.tar.gz
 ENV CABINST_DOWNLOADDIR $TMPINSTALLDIR/cabal-install-$CABINST_VERSION

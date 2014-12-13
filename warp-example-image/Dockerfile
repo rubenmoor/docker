@@ -24,8 +24,8 @@ RUN rm -rf $TMPDIR
 # RUN git archive --format=tar --remote=$GITREPO_PATH $GITREPO_TAG \
 #     | (cd $WEBDIR && tar -xf -)
 
-RUN cabal update
 RUN cd $WEBDIR && \
+    cabal update && \
     cabal install
 
 CMD $WEBSERVER_BINARY
