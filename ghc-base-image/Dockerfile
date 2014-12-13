@@ -4,6 +4,8 @@ FROM debian:jessie
 
 MAINTAINER Ruben Moor <ruben.moor@gmail.com>
 
+ENV LANG C.UTF-8
+
 RUN apt-get update && apt-get install -q -y \
     bzip2 \
     curl \

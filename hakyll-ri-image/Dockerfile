@@ -18,8 +18,6 @@ RUN mkdir -p $SRCDIR
 RUN cd $SRCDIR && \
     git clone $GITREPO_PATH .
 
-ENV LANG C.UTF-8
-
 RUN cd $SRCDIR && \
     cabal run build
 
